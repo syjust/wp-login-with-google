@@ -64,13 +64,13 @@ const wpGoogleLogin = {
 			var state  = params.substring( params.indexOf( '&state=' ) + 7, params.indexOf( '&scope' ) );
 
 			/* Decodes state value */
-			var decodeState = JSON.parse( atob( state ) );
+			var decodeState = JSON.parse( atob( decodeURIComponent( state ) ) );
 
 			/* Add remember parameter to state */
 			decodeState['remember'] = true;
 			var newState = btoa( JSON.stringify( decodeState ) );
 			window.orignalParams = params;
-			params = params.replace( state, newState );
+			params = params.replace( state, encodeURIComponent( newState ) );
 
 			/* Replace hyperlink to new state variable */
 			loginWithGoogle.setAttribute( 'href', params );
